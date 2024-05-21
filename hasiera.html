@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<!-- Google-en agertzen den web orriaren titulua -->
+<html>
+<head>
+  <meta charset="UTF-8">
+<title>Mantentze Elektronikoa</title>
+
+<!-- Izenburu handia logoarekin, klikak donboskora zoazela -->
+<header>
+   	<center><h1> MANTENTZE ELEKTRONIKOA</h1></center>
+</header>
+
+<!-- CSSrekin egin dudan formatua emateko. Gogoan izan hemen notepad eta Visual Studion formaturik badago, nahasmena egon daitekeela. -->
+<link rel="stylesheet" href="itxurita.css">
+
+<!-- tituluaren formatua -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to bottom, white, #FFA500); /* Degradado blanco a naranja */
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: orange;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.topnav a.split {
+  float: right;
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Añadir estilo para el enlace "Kontaktua" */
+.topnav a#kontaktua {
+  float: right;
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 16px; /* Ajusta el relleno según tus preferencias */
+  text-decoration: none;
+}
+
+ /* Estilo para la caja de texto */
+.box {
+  border: 1px solid #333; /* Borde de 1 píxel sólido de color gris oscuro */
+  padding: 20px; /* Relleno interno de 20 píxeles */
+  margin: 20px; /* Margen externo de 20 píxeles */
+  background-color: white; /* Fondo blanco */
+}
+
+/* Estilo para el texto dentro de la caja */
+.box h2, .box h3, .box p, .box ul, .box li, .box blockquote {
+  color: #333; /* Color del texto negro */
+}
+
+/* Estilo para el bloque de vídeo dentro de la caja */
+.box video {
+  width: 100%; /* Ancho del video al 100% de la caja */
+}
+
+/* Estilo para el pie de página dentro de la caja */
+.box footer {
+  margin-top: 20px; /* Espacio superior de 20 píxeles */
+}
+
+/* Estilo para el logo en el pie de página */
+.box footer img.logo {
+  width: 100px; /* Ancho del logo de 100 píxeles */
+  height: auto; /* Altura automática para mantener la proporción */
+}
+
+/* Aplica el estilo a la caja de texto en el contenido principal */
+div.scroll-container, .box {
+  max-width: 1100px; /* Ancho máximo de la caja de texto */
+  margin: 20px auto; /* Centra la caja de texto en la página */
+}
+
+
+
+<!-- Menua bere estekekin -->
+</style>
+</head>
+<body style="background-color:white;">
+
+<div class="navbar">
+  <a href="hasiera.html">Hasiera</a>
+  <div class="dropdown">
+    <button class="dropbtn">Ikasleak 
+    </button>
+    <div class="dropdown-content">
+      <a href="ikaslealta.php">Ikasle alta</a>
+      <a href="ikaslezerrenda.php">Ikasle zerrenda</a>
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn">Irakasleak    
+    </button>
+    <div class="dropdown-content">
+      <a href="irakasleakaetat.php">Irakasle alta eta tabla</a>
+      <a href="irakaslezerrenda.php">Irakasle zerrenda</a>
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn">Moduluak 
+    </button>
+    <div class="dropdown-content">
+      <a href="moduluenaetat.php">Moduluen alta eta tabla</a>
+      <a href="moduluenlista.php">Moduluen zerrenda</a>
+    </div>
+  </div> 
+   <a href="kontaktua.html" class="split">Kontaktua</a>
+   <a href="ebaluazioa.php" class="split">Ebaluazioa</a>
+</div>
+
+
+<!-- Formato eta argazkiak de la Hasiera con la barra desplazadora -->
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+div.scroll-container {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+  padding: 10px;
+}
+
+div.scroll-container img {
+  padding: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+
+<h3>Teknikaria izango zara, eta espezializazio handia izango duzu honako arlo hauetan: telekomunikazioetako azpiegiturak eta ekipoak, komunikazio-sareak, telefonia-sistemak, Gauzen Internet (IoT), soinu- eta irudi-ekipoak, sistema informatikoak, industriako ekipo elektronikoak, robotika eta Industria 4.0.</h3>
+
+<h2>Gure argazki batzuk</h2>
+<p>Ezer hoberik elkar ezagutzeko zuen begiekin ikustea baino! Hemen uzten dizkizuegu gure eguneroko irudiak.</p>
+<div/>
+<div class="scroll-container">
+  <img src="argazkiak/gela.jpg" alt="Gure gelak" width="550" height="350">
+  <img src="argazkiak/robot.jpg" alt="Gure ikasleek egindako robot-a" width="550" height="350">
+  <img src="argazkiak/3d.jpg" alt="3D makinak" width="550" height="350">
+</div>
+
+<!-- beheko informazioa -->
+<hr>
+<blockquote><h2>Irteera Profesionalak</h2>
+
+<h3>Telekomunikazio sektorean</h3>
+<ul>
+  <li>Telekomunikazio-tresneria eta -sistemak, sistema mikroprozesatuak, banda zabaleko sareak, telematika, irrati-komunikazioak eta audio- eta bideo-tresneria industriala eta profesionala diseñu,  mantentzera eta konpontze lanak.</li>
+</ul>  
+
+<h3>Industria sektorea</h3>
+<ul>
+  <li>Industria-tresneria eta linea automatizatuak garatzera eta gainbegiratzera, eta horien proiektuak garatzea.</li>
+  <li>Instalazio-metodoak planifikatzea, egindako instalazioen segurtasuna eta aginteak egiaztatzea, eta sistema, instalazio edo ekipo elektroniko-elektriko berrien hasierako funtzionamenduaz arduratzea.</li>
+  <li>Ekipo elektroniko eta elektriko-en fabrikatzeko eta instalatzeko beharrezkoak diren materialen eta eskulanaren kantitateen eta kostuen kalkulu eta estimazio zehatzak prestatzea, ezarritako zehaztapenekin bat etorriz.</li>
+  <li>Ekipo-makina elektroniko-elektrikoen , erabileraren, mantentzearen eta konponketaren kontrol teknikoa egitea, behar bezala funtzionatzen dutela eta dagozkion zehaztapen, arau eta erregelamenduak betetzen dituztela bermatzeko.</li>
+</ul> 
+
+<h3>Ikerketa eta Garapen Sektorean</h3>
+<ul>
+  <li>3D Impresora ekipoeen ikerketa eta garapenean laguntza teknikoa ematea, eta prototipoak probatzea.</li>
+  <li>Teknologia laborategietako ekipoen garapenean laguntza teknikoa ematea eta prototipoak probatzea.</li>
+</ul>  
+<hr>
+<h2>Teknologiak</h2>
+
+ <ul>
+<li>Sistema elektroniko txertatuak (mikrokontrolagailuak eta mikroprozesadoreak)</li>
+<li>Robotika industriala</li>
+<li>Robotika autonomoa</li>
+<li>Sentsorika eta Internet Of Things (IoT)</li>
+<li>IP gaineko telefonia</li>
+<li>Komunikazio sareak eta sareko elektronika (routerrak, switchak)</li>
+<li>Automatak eta automatismo industrialak</li>
+<li>Plaka eta zirkuitu elektronikoen fabrikazioa</li>
+<li>Audio, bideo eta irratikomunikazio gailuen teknologiak</li>
+<li>Enpresa-baliabideen plangintzarako softwareak (ERP)</li>
+<li>Proiektuen garapena</li>
+<li>3D Inprimaketa</li>
+<li>Murgiltze-ikaskuntza errealitate birtualarekin</li>
+</ul> <hr> </blockquote>
+
+<!-- Bideoa -->
+<p> Eta zu konbentzitzeko nahikoa ez bada, bideo bat utziko dugu jarraian. </p>
+ <center> <video width="685" height="515" controls>
+    <source src="Argazkiak/ELEKTRONIKA.mp4" type="video/mp4">
+    <source src="Argazkiak/ELEKTRONIKA.ogg" type="video/ogg">
+      Your browser does not support the video tag.
+  </video> </center>
+
+<!-- Orri-oin -->
+<footer>
+    <center><p>&copy; 2023 Amaia Beneitez. Todos los derechos reservados.</p></center>
+	   <a href="https://elektronikaetatelekomunikazioak.donbosco.eus/">
+	   <center><img class="logo" src="Argazkiak/logo.png" alt="Instagram logo"></center>
+	   </a>
+</footer>
+
+</body>
+
+</html> 

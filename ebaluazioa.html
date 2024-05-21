@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<!-- Titulo de pagina web en google -->
+<html>
+<head>
+  <meta charset="UTF-8">
+<title>Mantentze Elektronikoa</title>
+
+<!-- Titulo grande con logo que si clicas vas a donbosco -->
+<header>
+   	<center><h1> MANTENTZE ELEKTRONIKOA</h1></center>
+</header>
+
+<!-- para dar el formato que he hecho con CSS. Recuerda que si hay formato aqui en notepad y en Visual Studio puede haber confusion-->
+<link rel="stylesheet" href="itxurita.css">
+
+<!-- formato del titulo -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to bottom, white, #FFA500); /* Degradado blanco a naranja */
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: orange;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.topnav a.split {
+  float: right;
+  background-color: #04AA6D;
+  color: white;
+}
+
+<!-- Menú con sus links -->
+</style>
+</head>
+<body style="background-color:white;">
+
+<div class="navbar">
+  <a href="hasiera.html">Hasiera</a>
+  <div class="dropdown">
+    <button class="dropbtn">Ikasleak 
+    </button>
+    <div class="dropdown-content">
+      <a href="ikaslealta.html">Ikasle alta</a>
+      <a href="ikaslezerrenda.php">Ikasle zerrenda</a>
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn">Irakasleak    
+    </button>
+    <div class="dropdown-content">
+      <a href="irakasleakaetat.html">Irakasle alta eta tabla</a>
+      <a href="irakaslezerrenda.html">Irakasle zerrenda</a>
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn">Moduluak 
+    </button>
+    <div class="dropdown-content">
+      <a href="moduluenaetat.html">Moduluen alta eta tabla</a>
+      <a href="moduluenlista.html">Moduluen zerrenda</a>
+    </div>
+  </div> 
+   <a href="kontaktua.html" class="split">Kontaktua</a>
+   <a href="ebaluazioa.html" class="split">Ebaluazioa</a>
+</div>
+
+
+<!-- Formularioa -->
+<!-- "Accept" atributua gehitzen du, XML fitxategiak hautatu ahal izateko -->
+
+<form>
+    <label for="modulua">Modulua</label>
+    <input type="file" id="moduluaInput" accept=".xml" onchange="cargarOpcionesDeModuluakXML('moduluaInput', 'modulua')">
+    <select id="modulua" name="modulua" required></select>
+
+    <label for="ikaslea">Ikaslea</label>
+    <input type="file" id="ikasleaInput" accept=".xml" onchange="cargarOpcionesDeIkasleXML('ikasleaInput', 'ikaslea')">
+    <select id="ikaslea" name="ikaslea" required></select>
+
+    <label for="nota">Nota</label>
+    <input type="text" id="nota" name="nota" required>
+
+    <label for="faltak">Faltak</label>
+    <input type="text" id="faltak" name="faltak" required>
+
+    <input type="button" value="erantsi" onclick="guardarDatos()">
+    <button type="button" onclick="descargarDatos()">XML egin</button>
+
+</form>
+
+<div>
+        <center><h2><label for="notak">Aukeratu Notak XML</label></h2>
+        <input type="file" id="notakInput" accept=".xml" onchange="cargarOpcionesDeNotakXML('notakInput', 'notak')">
+    </div>
+</center>
+<br>
+
+    <!-- Tabla para notas Bikain, Oso ongi, Ongi, Nahiko -->
+    <center>
+	<h3> Gaindituak </h3>
+        <table id="notakTableBikain" border="1">
+            <thead>
+                <tr>
+                    <th>Modulua</th>
+                    <th>Ikaslea</th>
+                    <th>Nota</th>
+                    <th>Faltak</th>
+                    <th>Azkeneko nota</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </center>
+
+    <!-- Tabla para notas Gutxi -->
+    <center>
+	<h3> Ez gaindituak </h3>
+        <table id="notakTableGutxi" border="1">
+            <thead>
+                <tr>
+                    <th>Modulua</th>
+                    <th>Ikaslea</th>
+                    <th>Nota</th>
+                    <th>Faltak</th>
+                    <th>Azkeneko nota</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </center>
+
+
+ <script>
+ 
+  function cargarOpcionesDeNotakXML() {
+    var fileInput = document.getElementById('notakInput');
+    var file = fileInput.files[0];
+
+    if (file && file.name.toLowerCase().includes('notak') && file.name.toLowerCase().endsWith('.xml')) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var xmlContent = e.target.result;
+        mostrarDatosEnTabla(xmlContent);
+      };
+      reader.readAsText(file);
+    } else {
+      alert('Por favor, selecciona un archivo XML válido para Notak.');
+    }
+  }
+
+  function mostrarDatosEnTabla(xmlContent) {
+    var tableBodyBikain = document.querySelector('#notakTableBikain tbody');
+    var tableBodyGutxi = document.querySelector('#notakTableGutxi tbody');
+
+    var parser = new DOMParser();
+    var xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+    var items = xmlDoc.querySelectorAll('dato');
+
+    // Convertir NodeList a Array para poder ordenar
+    var itemsArray = Array.from(items);
+
+    // Ordenar el array por notas en orden descendente
+    itemsArray.sort(function (a, b) {
+        var notaA = parseFloat(a.querySelector('nota').textContent);
+        var notaB = parseFloat(b.querySelector('nota').textContent);
+        return notaB - notaA; // Orden descendente
+    });
+
+    itemsArray.forEach(function (item) {
+        var modulua = parseFloat(item.querySelector('modulua').textContent);
+        var ikaslea = parseFloat(item.querySelector('ikaslea').textContent);
+        var nota = parseFloat(item.querySelector('nota').textContent);
+        var faltak = parseFloat(item.querySelector('faltak').textContent);
+
+        // Determinar la categoría de la nota
+        var categoriaNota = '';
+        if (nota >= 9) {
+            categoriaNota = 'Bikain';
+        } else if (nota >= 7) {
+            categoriaNota = 'Oso ongi';
+        } else if (nota >= 6) {
+            categoriaNota = 'Ongi';
+        } else if (nota >= 5) {
+            categoriaNota = 'Nahiko';
+        } else {
+            categoriaNota = 'Gutxi';
+        }
+
+        // Insertar la fila en la tabla correspondiente
+        var row = document.createElement('tr');
+        var moduluaCell = document.createElement('td');
+        var ikasleaCell = document.createElement('td');
+        var notaCell = document.createElement('td');
+        var faltakCell = document.createElement('td');
+        var categoriaCell = document.createElement('td');
+
+        moduluaCell.textContent = item.querySelector('modulua').textContent;
+        ikasleaCell.textContent = item.querySelector('ikaslea').textContent;
+        notaCell.textContent = item.querySelector('nota').textContent;
+        faltakCell.textContent = item.querySelector('faltak').textContent;
+        categoriaCell.textContent = categoriaNota;
+
+        row.appendChild(moduluaCell);
+        row.appendChild(ikasleaCell);
+        row.appendChild(notaCell);
+        row.appendChild(faltakCell);
+        row.appendChild(categoriaCell);
+
+        if (categoriaNota === 'Gutxi') {
+            tableBodyGutxi.appendChild(row);
+        } else {
+            tableBodyBikain.appendChild(row);
+        }
+    });
+}
+</script>
+
+
+<!-- Orri-oin -->
+<footer>
+    <center><p>&copy; 2023 Amaia Beneitez. Todos los derechos reservados.</p></center>
+	   <a href="https://elektronikaetatelekomunikazioak.donbosco.eus/">
+	   <center><img class="logo" src="Argazkiak/logo.png" alt="Instagram logo"></center>
+	   </a>
+</footer>
+
+
+<script>
+        function cargarOpcionesDeIkasleXML() {
+            var fileInput = document.getElementById('ikasleaInput');
+            var file = fileInput.files[0];
+
+            if (file && file.name.toLowerCase().includes('ikasleak') && file.name.toLowerCase().endsWith('.xml')) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var xmlContent = e.target.result;
+                    populateSelect('ikaslea', xmlContent);
+                };
+                reader.readAsText(file);
+            } else {
+                alert('Please select a valid Ikasleak XML file.');
+            }
+        }
+
+        function cargarOpcionesDeModuluakXML() {
+               var fileInput = document.getElementById('moduluaInput');
+               var file = fileInput.files[0];
+
+           if (file && file.name.toLowerCase().includes('moduluak') && file.name.toLowerCase().endsWith('.xml')) {
+               var reader = new FileReader();
+               reader.onload = function (e)	
+			   {
+                    var xmlContent = e.target.result;
+                    populateSelect('modulua', xmlContent);
+        };
+        reader.readAsText(file);
+    } else {
+        alert('Aukeratu Moduluak XML fitxategia.');
+    }
+}
+
+        function populateSelect(selectId, xmlContent) {
+            var selectElement = document.getElementById(selectId);
+            // Clear existing options
+            selectElement.innerHTML = '';
+
+            // Parse XML content and extract data
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+            var items = xmlDoc.querySelectorAll('moduluak, dato'); // Adjust the selector based on your XML structure
+
+            items.forEach(function (item) {
+                var option = document.createElement('option');
+                option.value = item.querySelector('nan, moduluzenbakia').textContent; // Adjust the selector based on your XML structure
+                option.textContent = option.value;
+                selectElement.appendChild(option);
+            });
+        }
+		
+		  
+    // Array para almacenar los datos
+    var datosGuardados = [];
+
+    function guardarDatos() {
+        // Obtener los valores del formulario
+        var modulua = document.getElementById('modulua').value;
+        var ikaslea = document.getElementById('ikaslea').value;
+        var nota = document.getElementById('nota').value;
+        var faltak = document.getElementById('faltak').value;
+
+        // Validar que se hayan ingresado valores
+        if (!modulua || !ikaslea || !nota || !faltak) {
+            alert('Mesedez, bete eremuen guztiak.');
+            return;
+        }
+
+        // Agregar los datos al array
+        datosGuardados.push({
+            modulua: modulua,
+            ikaslea: ikaslea,
+            nota: nota,
+            faltak: faltak
+        });
+
+        // Limpiar los campos del formulario después de guardar
+        document.getElementById('modulua').value = '';
+        document.getElementById('ikaslea').value = '';
+        document.getElementById('nota').value = '';
+        document.getElementById('faltak').value = '';
+
+        // Mostrar un mensaje de éxito
+        alert('Datuak ondo gorde dira.');
+    }
+
+    function descargarDatos() {
+        // Validar que haya datos guardados
+        if (datosGuardados.length === 0) {
+            alert('Ez dago datu guardaturik.');
+            return;
+        }
+
+        // Crear un objeto XML
+        var xmlContent = '<?xml version="1.0" encoding="UTF-8"?>';
+        xmlContent += '<datos>';
+
+        // Agregar cada conjunto de datos al contenido XML
+        datosGuardados.forEach(function (datos) {
+            xmlContent += '<dato>';
+            xmlContent += '<modulua>' + datos.modulua + '</modulua>';
+            xmlContent += '<ikaslea>' + datos.ikaslea + '</ikaslea>';
+            xmlContent += '<nota>' + datos.nota + '</nota>';
+            xmlContent += '<faltak>' + datos.faltak + '</faltak>';
+            xmlContent += '</dato>';
+        });
+
+        xmlContent += '</datos>';
+
+        // Crear un Blob con el contenido XML
+        var blob = new Blob([xmlContent], { type: 'application/xml' });
+
+        // Crear un enlace de descarga y hacer clic en él
+        var a = document.createElement('a');
+        a.href = window.URL.createObjectURL(blob);
+        a.download = 'notak.xml';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        // Limpiar el array después de la descarga
+        datosGuardados = [];
+    }
+</script>
+
+</body>
+</html>
